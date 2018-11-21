@@ -1,0 +1,17 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center {
+  height: 200px;
+  width: 200px;
+  border: 1px solid rgb(255, 0, 0);
+}
