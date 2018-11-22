@@ -51,7 +51,7 @@ a[href="#"] {
 .thumbnail-image {
   display: block;
   width: 100%;
-  height: 100%;
+  height: 100px;
 }
 
 .thumbnail-title {
@@ -75,15 +75,17 @@ a[href="#"] {
 .thumbnail-list {
   list-style: none;
   display: flex;
+  flex: 0 1 auto;
   justify-content: space-between;
   order: 2;
   padding: 0;
   white-space: nowrap;
   overflow-x: auto;
+  overflow: hidden;
 }
 
 .thumbnail-item + .thumbnail-item {
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .detail-image-from {
@@ -110,4 +112,37 @@ a[href="#"] {
 
 .detail-image {
   width: 90%;
+}
+
+@media all and (min-width: 780px) {
+  .main-content {
+    flex-direction: row;
+  }
+
+  .thumbnail-list {
+    flex-direction: column;
+    overflow: hidden;
+    order: 0;
+    margin-left: 20px;
+  }
+
+  .thumbnail-item {
+    max-width: 260px;
+  }
+
+  .thumbnail-item + .thumbnail-item {
+    margin-top: 20px;
+  }
+}
+
+@media all and (orientation: landscape) {
+  a {
+    color: rgb(255, 0, 0);
+  }
+}
+
+@media all and (orientation: portrait) {
+  a {
+    color: rgb(0, 255, 0);
+  }
 }

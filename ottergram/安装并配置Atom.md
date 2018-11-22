@@ -7,6 +7,9 @@ tags:
 
 #### Atom插件
 >File->Settings control + ， 打开setting面板  点击install
+>browser-sync 修改文件时自动部署
+>静态项目监听 browser-sync --server --files "文件*.html/.css"
+>动态项目监听  browser--sync --proxy "localhost:xxxx" --files "* .html"
 >emmet插件:可以用一些速记符生成符合语法规则的HTML
 >atom-beautify:辅助缩进，提高代码可读性
 >autocomplete-paths：输入文件名时自动补全引用
