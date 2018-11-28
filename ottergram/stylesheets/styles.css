@@ -26,7 +26,7 @@ body {
   font-size: 10px;
 }
 
-a[href="#"] {
+a {
   text-decoration: none;
 }
 
@@ -51,7 +51,6 @@ a[href="#"] {
 .thumbnail-image {
   display: block;
   width: 100%;
-  height: 100px;
 }
 
 .thumbnail-title {
@@ -70,6 +69,11 @@ a[href="#"] {
   display: inline-block;
   border: 1px solid rgb(100%, 100%, 100%);
   border: 1px solid rgba(100%, 100%, 100%, 0.8);
+  transition: transform 600ms ease-in-out;
+}
+
+.thumbnail-item:hover {
+  transform: scale(1.2);
 }
 
 .thumbnail-list {
@@ -78,7 +82,7 @@ a[href="#"] {
   flex: 0 1 auto;
   justify-content: space-between;
   order: 2;
-  padding: 0;
+  padding: 20px 0;/* padding: 0; */
   white-space: nowrap;
   overflow-x: auto;
   overflow: hidden;
@@ -88,9 +92,15 @@ a[href="#"] {
   /* margin-top: 10px; */
 }
 
-.detail-image-from {
+.detail-image-frame {
   position: relative;
   text-align: center;
+  transition: transform 833ms;
+}
+
+.is-tiny {
+  transform: scale(0.001);
+  transition: transform 0ms;
 }
 
 .detail-image-title {
@@ -110,6 +120,19 @@ a[href="#"] {
   align-items: center;
 }
 
+.hidden-detail .detail-image-container {
+  display: none;
+}
+
+.hidden-detail .thumbnail-list {
+  flex-direction: column;
+  align-items: center;
+}
+
+.hidden-detail .thumbnail-item {
+  max-width: 80%;
+}
+
 .detail-image {
   width: 90%;
 }
@@ -124,6 +147,7 @@ a[href="#"] {
     overflow: hidden;
     order: 0;
     margin-left: 20px;
+    padding: 0 35px;
   }
 
   .thumbnail-item {
