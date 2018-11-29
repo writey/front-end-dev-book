@@ -38,5 +38,5 @@ setTimeout(function(){
     b.classList.remove('is-tiny');
 },800);
 ```
-当点击b元素时，为b元素添加is-tiny样式过度时间为800ms，设置定时函数，800ms后
-之后回调函数，移除b元素的is-tiny样式
+当点击b元素时，为b元素添加is-tiny样式过度时间为800ms，此时图片开始缩小，设置定时函数，800ms后
+之后回调函数，移除b元素的is-tiny样式，图片开始放大。
