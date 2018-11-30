@@ -1,0 +1,17 @@
+{
+
+    "extends": "airbnb",
+    "plugins": [
+        "react",
+        "jsx-a11y",
+        "import"
+    ],
+    "env": {
+        "jquery": true,
+        "browser": true
+    },
+    "rules": {
+        "indent": ["error", 2],
+        "linebreak-style":0
+    }
+}
