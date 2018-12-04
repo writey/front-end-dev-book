@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>coffeerun</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
   </head>
   <body class="container">
     <header>
@@ -29,13 +30,13 @@
             </div>
             <div class="radio">
               <label for="">
-                <input type="radio"name="size"value="tall" checked>
+                <input type="radio" name="size" value="tall" checked >
                 Tall
               </label>
             </div>
             <div class="radio">
               <label for="">
-                <input type="radio" name="size" value="grande"></input>
+                <input type="radio" name="size" value="grande">
                 Grande
               </label>
             </div>
@@ -46,21 +47,63 @@
                 <option value="caramel">Caramel</option>
                 <option value="almond">Almond</option>
                 <option value="mocha">Mocha</option>
+                <option value="gesila">Gesila</option>
               </select>
             </div>
             <div class="form-group">
               <label for="strengthLevel">Caffeine Rating</label>
-              <input name="strength" type="range" value="30" id="strengthLevel">
+              <span for="strengthLevel" data-coffee-strength="span"></span>
+              <input name="strength" data-coffee-strength="range" type="range" value="30" id="strengthLevel" oninput="change()" onchange="change()">
             </div>
             <button class="btn btn-default" type="submit">Submit</button>
             <button class="btn btn-default" type="reset">Reset</button>
           </form>
         </div>
       </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h4>Pending Order</h4>
+          <div data-coffer-order="checklist">
+          </div>
+        </div>
+      </div>
     </section>
-  <script src="scripts/datastore.js" type="text/javascript"> </script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js" charset="utf-8"></script>
+  <script src="scripts/formhandler.js" charset="utf-8"></script>
+  <script src="scripts/checklist.js" charset="utf-8"></script>
+  <script src="scripts/datastore.js" type="text/javascript"></script>
   <script type="text/javascript" src="scripts/truck.js"></script>
   <script type="text/javascript" src="scripts/main.js"></script>
   <script type="text/javascript" src="scripts/private.js"></script>
+  <script type="text/javascript">
+    const SPAN_STRENGTH_SELECTOR = '[data-coffee-strength="span"]';
+    const RANGE_STRENGTH_SELECTOR = '[data-coffee-strength="range"]';
+    const RGB_NUMBER_MAX = 100;
+    function change() {
+      const range = document.querySelector(RANGE_STRENGTH_SELECTOR);
+      const span = document.querySelector(SPAN_STRENGTH_SELECTOR);
+      span.textContent = range.value;
+      changeRGBofNumber(range.value);
+    };
+
+    function changeRGBofNumber(number) {
+      const range = document.querySelector(RANGE_STRENGTH_SELECTOR);
+      const span = document.querySelector(SPAN_STRENGTH_SELECTOR);
+      const paragraph = 2;
+      if (number >=0 && number <= RGB_NUMBER_MAX) {
+        if(number < RGB_NUMBER_MAX/paragraph) {
+          span.style.color = 'rgb(' + number / RGB_NUMBER_MAX * paragraph * 255 + ', 255, 0)';
+          const rgb = 'rgb(' + number / RGB_NUMBER_MAX * paragraph * 255 + ', 255, 0)';
+          return rgb;
+        }else {
+          span.style.color = 'rgb(255,' + (255 - (number - RGB_NUMBER_MAX / paragraph) / RGB_NUMBER_MAX * paragraph * 255) + ', 0)';
+          const rgb = 'rgb(255,' + (255 - (number - RGB_NUMBER_MAX / paragraph) / RGB_NUMBER_MAX * paragraph * 255) + ', 0)';
+          return rgb;
+        }
+      }
+    }
+    change();
+  </script>
   </body>
 </html>

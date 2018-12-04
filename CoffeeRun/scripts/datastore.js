@@ -1,26 +1,29 @@
-(function (window) {
+(function init(window) {
+  // 初始化App变量
   const App = window.App || {};
-  let data = {};
-
+  // DataStore的私有属性
+  const data = {};
+  // DataStore构造函数
   function DataStore() {
   }
-
-  DataStore.prototype.add = function (key, val) {
+  // DataStore的add方法
+  DataStore.prototype.add = function add(key, val) {
     data[key] = val;
   };
-
-  DataStore.prototype.get = function (key) {
+  // DataStore的get方法
+  DataStore.prototype.get = function get(key) {
     return data[key];
   };
-
-  DataStore.prototype.getAll = function () {
+  // DataStore的getAll方法
+  DataStore.prototype.getAll = function getAll() {
     return data;
   };
-
-  DataStore.prototype.remove = function (key) {
+  // DataStore的remove方法
+  DataStore.prototype.remove = function remove(key) {
     delete data[key];
   };
-
+  // App添加DataStore属性
   App.DataStore = DataStore;
+  // 把App添加到全局变量
   window.App = App;
 }(window));

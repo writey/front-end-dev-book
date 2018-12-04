@@ -1,11 +1,10 @@
-(function (window) {
+(function init(window) {
   const App = window.App || {};
 
   function Truck(truckId, db) {
     this.truckId = truckId;
     this.db = db;
   }
-
   Truck.prototype.createOrder = function createOrder(order) {
     console.log(`Adding order for ${order.emailAddress}`);
     this.db.add(order.emailAddress, order);
@@ -22,6 +21,11 @@
     customerIdArray.forEach((id) => {
       console.log(this.db.get(id));
     });
+  };
+
+  Truck.prototype.getOrder = function getOrder(customerId) {
+    console.log(`get order for ${customerId}`);
+    return this.db.get(customerId);
   };
 
   App.Truck = Truck;
