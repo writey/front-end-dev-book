@@ -64,6 +64,7 @@
         this.timeJob[email] = window.setTimeout(() => {
           this.removeRow(email);
           remove(email);
+          this.timeJob[email] = '';
         }, 3000);
       } else {
         this.$element

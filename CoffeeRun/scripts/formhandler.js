@@ -35,6 +35,46 @@
     };
   }
 
+  // 添加邮箱监听校验
+  FormHandler.prototype.addInputHandler = function addInputHandler(fn) {
+    this.$formElement.on('input', '[name="emailAddress"]', (event) => {
+      const emailAddress = event.target.value;
+      if (fn(emailAddress)) {
+        event.target.setCustomValidity('');
+      } else {
+        const message = `${emailAddress}is not an authorized email address`;
+        event.target.setCustomValidity(message);
+      }
+    });
+  };
+
+  // 添加coffeeOrder input 监听
+  FormHandler.prototype.addCoffeeInputHandler = function addCoffeeInputHandler(fn) {
+    this.$formElement.on('input', '[name="coffee"]', (event) => {
+      const coffee = event.target.value;
+      const strengthLevel = this.$formElement.find('[data-coffee-strength="range"]').val();
+      if (fn(coffee, strengthLevel)) {
+        event.target.setCustomValidity('');
+      } else {
+        const message = `${coffee} ${strengthLevel} is a decaf`;
+        event.target.setCustomValidity(message);
+      }
+    });
+  };
+  // 添加coffeeOrder 浓度监听
+  FormHandler.prototype.addCoffeeRange = function addCoffeeRange(fn) {
+    this.$formElement.on('range', '[name="strength"]', (event) => {
+      const coffee = this.$formElement.find('[name="coffee"]').val();
+      const strengthLevel = event.target.value;
+      if (fn(coffee, strengthLevel)) {
+        event.target.setCustomValidity('');
+      } else {
+        const message = `${coffee} ${strengthLevel} is a decaf`;
+        event.target.setCustomValidity(message);
+      }
+    });
+  };
+
   FormHandler.prototype.formJSON = function formJSON(data) {
     $.each(data, (key, value) => {
       const $elem = $(`[name="${key}"]`, this.$element);

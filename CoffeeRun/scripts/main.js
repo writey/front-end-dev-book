@@ -10,6 +10,7 @@
   const DataStore = App.DataStore;
   const FormHandler = App.FormHandler;
   const CheckList = App.CheckList;
+  const Validation = App.Validation;
   // 新建formHandler对象
   const formHandler = new FormHandler(FORM_SELECTOR);
   const checklist = new CheckList(CHECKLIST_SELECTOR);
@@ -20,6 +21,9 @@
     myTruck.createOrder.call(myTruck, data);
     checklist.addRow.call(checklist, data);
   });
+  formHandler.addInputHandler(Validation.isCompanyEmail);
+  formHandler.addCoffeeInputHandler(Validation.isDecaf);
+  formHandler.addCoffeeRange(Validation.isDecaf);
   checklist.addClickHandler(myTruck.deliverOrder.bind(myTruck),
     formHandler.formJSON.bind(formHandler));
 }(window));
