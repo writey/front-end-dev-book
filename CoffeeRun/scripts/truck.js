@@ -1,25 +1,34 @@
 (function init(window) {
   const App = window.App || {};
 
-  function Truck(truckId, db) {
+  function Truck(truckId, db, db2) {
     this.truckId = truckId;
     this.db = db;
+    db.getAll().then(() => {
+      this.db = db;
+    }, () => {
+      this.db = db2;
+    });
   }
   Truck.prototype.createOrder = function createOrder(order) {
     console.log(`Adding order for ${order.emailAddress}`);
-    this.db.add(order.emailAddress, order);
+    return this.db.add(order.emailAddress, order);
   };
 
   Truck.prototype.deliverOrder = function deliverOrder(customerId) {
     console.log(`Delivering order for ${customerId}`);
-    this.db.remove(customerId);
+    return this.db.remove(customerId);
   };
 
-  Truck.prototype.printOrders = function printOrders() {
-    const customerIdArray = Object.keys(this.db.getAll());
+  Truck.prototype.printOrders = function printOrders(printFn) {
     console.log(`Truck # ${this.truckId} has pending orders:`);
-    customerIdArray.forEach((id) => {
-      console.log(this.db.get(id));
+    return this.db.getAll().then((orders) => {
+      Object.keys(orders).forEach((id) => {
+        console.log(id);
+        if (printFn) {
+          printFn(orders[id]);
+        }
+      });
     });
   };
 

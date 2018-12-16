@@ -21,16 +21,19 @@
         // 组织表单提交
         event.preventDefault();
         // 将表单中元素以key,value存入data
-        let data = {};
+        const data = {};
         $(this).serializeArray().forEach((item) => {
           data[item.name] = item.value;
           console.log(`${item.name} is ${item.value}`);
         });
         console.log(data);
         // 执行传入的fn函数
-        fn(data);
-        // 重置表单
-        this.reset();
+        fn(data)
+          .then(() => {
+            // 重置表单
+            this.reset();
+            this.elements[0].focus();
+          });
       });
     };
   }
@@ -43,6 +46,18 @@
         event.target.setCustomValidity('');
       } else {
         const message = `${emailAddress}is not an authorized email address`;
+        event.target.setCustomValidity(message);
+      }
+    });
+  };
+
+  FormHandler.prototype.addHasEmailHandler = function addHasEmailHandler(fn) {
+    this.$formElement.on('input', '[name="emailAddress"]', (event) => {
+      const emailAddress = event.target.value;
+      if (fn(emailAddress, window.myTruck.db)) {
+        event.target.setCustomValidity('');
+      } else {
+        const message = `${emailAddress} db is has email address`;
         event.target.setCustomValidity(message);
       }
     });

@@ -62,8 +62,7 @@
           .closest('[data-coffee-order="checkbox"]')
           .addClass(editCss);
         this.timeJob[email] = window.setTimeout(() => {
-          this.removeRow(email);
-          remove(email);
+          remove(email).then(() => this.removeRow(email));
           this.timeJob[email] = '';
         }, 3000);
       } else {
@@ -72,7 +71,7 @@
           .closest('[data-coffee-order="checkbox"]')
           .removeClass(editCss);
         window.clearTimeout(this.timeJob[email]);
-        loadOder(window.myTruck.getOrder(email));
+        window.myTruck.getOrder(email).then(loadOder);
         this.timeJob[email] = '';
       }
     });
