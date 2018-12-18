@@ -54,12 +54,14 @@
   FormHandler.prototype.addHasEmailHandler = function addHasEmailHandler(fn) {
     this.$formElement.on('input', '[name="emailAddress"]', (event) => {
       const emailAddress = event.target.value;
-      if (fn(emailAddress, window.myTruck.db)) {
-        event.target.setCustomValidity('');
-      } else {
-        const message = `${emailAddress} db is has email address`;
-        event.target.setCustomValidity(message);
-      }
+      window.myTruck.db.getAll().then((orders) => {
+        if (fn(emailAddress, orders)) {
+          event.target.setCustomValidity('');
+        } else {
+          const message = `${emailAddress} db is has email address`;
+          event.target.setCustomValidity(message);
+        }
+      });
     });
   };
 

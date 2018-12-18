@@ -27,7 +27,7 @@
       checklist.addRow.call(checklist, data);
     }));
   formHandler.addInputHandler(Validation.isCompanyEmail);
-  // formHandler.addHasEmailHandler(Validation.isHas);
+  formHandler.addHasEmailHandler(Validation.isHas);
   formHandler.addCoffeeInputHandler(Validation.isDecaf);
   formHandler.addCoffeeRange(Validation.isDecaf);
   checklist.addClickHandler(myTruck.deliverOrder.bind(myTruck),
