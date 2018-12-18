@@ -1,4 +1,9 @@
 import socket from './ws-client';
+import { ChatForm, ChatList } from './dom';
+
+const FORM_SELECTOR = '[data-chat="chat-form"]';
+const INPUT_SELECTOR = '[data-chat="message-input"]';
+const LIST_SELECTOR = '[data-chat="message-list"]';
 
 class ChatMessage {
   constructor({
@@ -20,24 +25,36 @@ class ChatMessage {
   }
 }
 
-function socketInit(url) {
+class ChatApp {
+  constructor() {
+    // 初始化当前客户端表单
+    this.chatForm = new ChatForm(FORM_SELECTOR, INPUT_SELECTOR);
+    // 初始化当前客户端的聊天列表
+    this.chatList = new ChatList(LIST_SELECTOR, '1290529958@qq.com');
+    // console.log('hello es 6!');
+    this.socket = this.socketInit('ws://localhost:3001');
+  }
+}
+ChatApp.prototype.socketInit = function socketInit(url) {
   socket.init(url);
-  socket.registerOpenHandler(() => window.switchClass('on'));
+  socket.registerOpenHandler(() => {
+    // 切换按钮状态
+    window.switchClass('on');
+    this.chatForm.init((data) => {
+      const message = new ChatMessage({ message: data });
+      socket.sendMessage(message.serialize());
+    });
+  });
   socket.registerMessageHandler((data) => {
     console.log(data);
+    const message = new ChatMessage(data);
+    this.chatList.drawMessage(message.serialize());
   });
   socket.registerCloseHandler(() => window.switchClass('off'));
   return socket;
-}
-
-class ChatApp {
-  constructor() {
-    // console.log('hello es 6!');
-    this.socket = socketInit('ws://localhost:3001');
-  }
-}
+};
 ChatApp.prototype.reconnection = function reocnnection(client) {
-  this.socket = socketInit(client.getUrl());
+  this.socket = this.socketInit(client.getUrl());
 };
 
 export default ChatApp;

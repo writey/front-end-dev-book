@@ -21,9 +21,7 @@ ws.on('connection', (socket) => {
     messages.push(data);
     // 广播（默认socket对象为当前客户端，广播则可通过遍历所有客户端发送信息）
     ws.clients.forEach((client) => {
-      if (client !== socket) {
-        client.send(data);
-      }
+      client.send(data);
     });
     // 重复执行
     // messages.forEach(() => {
