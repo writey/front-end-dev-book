@@ -36,14 +36,15 @@ class ChatApp {
   constructor() {
     // 初始化当前客户端表单
     this.chatForm = new ChatForm(FORM_SELECTOR, INPUT_SELECTOR);
-    // 初始化当前客户端的聊天列表
-    this.chatList = new ChatList(LIST_SELECTOR, username);
     // console.log('hello es 6!');
     this.socket = this.socketInit('ws://localhost:3001');
   }
 }
 ChatApp.prototype.socketInit = function socketInit(url) {
   socket.init(url);
+  // 初始化当前客户端的聊天列表
+  this.chatList = new ChatList(LIST_SELECTOR, username);
+  this.chatList.timeInit();
   socket.registerOpenHandler(() => {
     // 切换按钮状态
     window.switchClass('on');

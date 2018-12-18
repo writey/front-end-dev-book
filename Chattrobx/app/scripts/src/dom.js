@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import md5 from 'crypto-js/md5';
+import moment from 'moment';
 
 function createGravatarUrl(username) {
   const userhash = md5(username);
@@ -35,6 +36,7 @@ export class ChatList {
   constructor(listSel, username) {
     this.$list = $(listSel);
     this.username = username;
+    this.$list.empty();
   }
 
   drawMessage({ user: u, timestamp: t, message: m }) {
@@ -57,7 +59,7 @@ export class ChatList {
     $message.append($('<span>', {
       class: 'timestamp',
       'data-time': t,
-      text: (new Date(t)).getTime(),
+      text: moment(t).fromNow(),
     }));
     // 添加内容
     $message.append($('<span>', {
@@ -75,5 +77,16 @@ export class ChatList {
     this.$list.append($messageRow);
     // 滚动道可视区域
     $messageRow.get(0).scrollIntoView();
+  }
+
+  timeInit() {
+    this.timer = setInterval(() => {
+      $('[data-time]').each((index, element) => {
+        const $element = $(element);
+        const timestamp = new Date().setTime($element.attr('data-time'));
+        const ago = moment(timestamp).fromNow();
+        $element.html(ago);
+      }, 1000);
+    });
   }
 }
