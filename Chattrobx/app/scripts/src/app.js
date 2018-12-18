@@ -15,11 +15,11 @@ if (!username) {
 class ChatMessage {
   constructor({
     message: m,
-    user: u = username,
+    user: u,
     timestamp: t = (new Date()).getTime(),
   }) {
     this.message = m;
-    this.user = u;
+    this.user = u || username;
     this.timestamp = t;
   }
 
