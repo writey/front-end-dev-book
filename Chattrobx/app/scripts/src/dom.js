@@ -1,4 +1,15 @@
 import $ from 'jquery';
+import md5 from 'crypto-js/md5';
+
+function createGravatarUrl(username) {
+  const userhash = md5(username);
+  return `http://www.gravatar.com/avatar/${userhash}`;
+}
+
+export function promptForUsername() {
+  const username = prompt('Enter a username');
+  return username.toLowerCase();
+}
 
 export class ChatForm {
   constructor(formSel, inputSel) {
@@ -54,6 +65,12 @@ export class ChatList {
       text: m,
     }));
 
+    const $img = $('<img>', {
+      src: createGravatarUrl(u),
+      title: u,
+    });
+
+    $messageRow.append($img);
     $messageRow.append($message);
     this.$list.append($messageRow);
     // 滚动道可视区域

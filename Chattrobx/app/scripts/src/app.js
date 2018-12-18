@@ -1,14 +1,17 @@
 import socket from './ws-client';
-import { ChatForm, ChatList } from './dom';
+import { ChatForm, ChatList, promptForUsername } from './dom';
 
 const FORM_SELECTOR = '[data-chat="chat-form"]';
 const INPUT_SELECTOR = '[data-chat="message-input"]';
 const LIST_SELECTOR = '[data-chat="message-list"]';
 
+let username = '';
+username = promptForUsername();
+
 class ChatMessage {
   constructor({
     message: m,
-    user: u = 'xx',
+    user: u = username,
     timestamp: t = (new Date()).getTime(),
   }) {
     this.message = m;
@@ -30,7 +33,7 @@ class ChatApp {
     // 初始化当前客户端表单
     this.chatForm = new ChatForm(FORM_SELECTOR, INPUT_SELECTOR);
     // 初始化当前客户端的聊天列表
-    this.chatList = new ChatList(LIST_SELECTOR, '1290529958@qq.com');
+    this.chatList = new ChatList(LIST_SELECTOR, username);
     // console.log('hello es 6!');
     this.socket = this.socketInit('ws://localhost:3001');
   }
