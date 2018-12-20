@@ -38,5 +38,34 @@ ember客户端安装插件:`ember install @fortawesome/ember-fontawesome`
 安装到项目`npm i --save-dev @fortawesome/free-solid-svg-icons`
 模板中即可直接使用`{{ fa-icon 'coffee' }}`
 
+## ember路由
+在根目录使用 `ember g route 路由名称` 来创建路由。
+会在routes,templates路径生成对应的模板和js文件，在route.js文件中添加对应的路由配置。
+```
+Router.map(function() {
+  this.route('sightings', function() {
+    this.route('new');
+  });
+  this.route('sighting');
+});
+```
+Router.map接收一个回调函数用来注册路由，在回调函数中使用this.ruote('name')来注册，同时this.route的第二个参数也接收一个回调函数来注册路由。
+##### 模板嵌套
+模板中{{outlet}}代表加载上级路由中的内容。
+
+## 路由钩子
+每当URL发生改变时，应用都会在后台重新初始化路由对象。
+路有对象中有各种钩子：beforeModel、model、afterModel、setController和stupController。
+`this.transitionTo('')`路由跳转。
+## 模板语言
+```
+{{#each model as |sighting|}}
+  <li class="list-group-item">
+    {{sighting.location}} - {{sighting.SightedAt}}
+  </li>
+{{/each}}
+```
+很容易理解，each循环model，遍历对象名称为sighting。
+
 ## bower
 包管理工具。 `npm install -g bower`
