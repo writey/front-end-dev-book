@@ -93,6 +93,13 @@ model() {
     });
 }
 ```
-
+#### 计算属性
+`Ember.computed` 方法可定义计算属性：会对一些属性的值进行计算并返回结果。
+```
+Ember.computed('first_name', () => {
+  return this.get('first_name').toLowerCase();
+  });
+```
+就像事件监听一样，监听first_name的值，当变化时触发回调函数。可接受多个参数。
 ## bower
 包管理工具。 `npm install -g bower`
