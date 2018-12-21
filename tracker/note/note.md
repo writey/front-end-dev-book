@@ -67,5 +67,32 @@ Router.map接收一个回调函数用来注册路由，在回调函数中使用t
 ```
 很容易理解，each循环model，遍历对象名称为sighting。
 
+## 定义模型
+`ember g model xxx`
+模型生成在app/models/下。
+DS（Data Store）是ember Data 提供的对象，提供了attr方法来定义参数属性：`name: DS.attr('string')`
+Ember 中的数据类型:字符串`string`，数字`number`，布尔值`boolean`，日期`data`，还可以通过transfrom来自定义数据类型。
+attr还可以接受第二个参数（一个json），定义该json为其添加默认值`name: DS.attr('string',{defaultValue: 'air'})`
+#### 对应关系
+DS中还有其他方法为属性定义参数对应关系。
+| 关系 | 关联模型 | 被关联模型 |
+| :-: | :-: | :-: |
+| 一对一 | DS.hasOne | DS.belongsTo |
+| 一对多 | DS.hasMany | DS.belongsTo |
+| 一对一 | DS.hasMany | DS.HasMany |
+
+#### 创建模型记录
+应用初始化时EmberDatahi创建用于本地存储的DataStore对象，`this.store`包含了对模型记录进行创建、查询、修改、删除。
+store会被注入到所有路由，控制器及组件中，在路由等对象方法中可以通过`this.store`访问。
+创建记录方法为`this.store.createRecord`,他需要两个参数，模型名称，记录数据。
+```
+model() {
+  let record1 = this.store.createRecord('data', {
+    name: 'name1',
+    age: 12,
+    });
+}
+```
+
 ## bower
 包管理工具。 `npm install -g bower`
