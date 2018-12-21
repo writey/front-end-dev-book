@@ -101,5 +101,13 @@ Ember.computed('first_name', () => {
   });
 ```
 就像事件监听一样，监听first_name的值，当变化时触发回调函数。可接受多个参数。
+## 适配器
+stroe使用JSONAPIAdapter和RESTAPI进行通信。
+JSONAPIAdapter需要有host和namespace两个属性的值，一边生成ajax请求的URL。接着适配器会发出Ajax请求，接受json响应，但相应数据必须有特定结构。
+创建适配器： ember g adapter application
+## 内容安全策略
+[内容安全策略](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP)
+ember提供了一款插件用于修改默认安全策略：`ember-cli-content-security-policy`
+
 ## bower
 包管理工具。 `npm install -g bower`

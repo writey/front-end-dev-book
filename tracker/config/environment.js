@@ -29,7 +29,7 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
   };
 
   if (environment === 'development') {
@@ -54,6 +54,12 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+  }
+
+  // config security-pility
+  ENV.contentSecurityPolicy = {
+    'connect-src': 'bnr-tracker-api.herokuapp.com',
+    'font-src': "'self' https://fonts.gstatic.com",
   }
 
   return ENV;
