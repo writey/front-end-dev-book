@@ -60,6 +60,7 @@ module.exports = function(environment) {
   ENV.contentSecurityPolicy = {
     'connect-src': 'bnr-tracker-api.herokuapp.com',
     'font-src': "'self' https://fonts.gstatic.com",
+    'self': "'self' '127.0.0.1'",
   }
 
   return ENV;

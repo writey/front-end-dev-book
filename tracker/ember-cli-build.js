@@ -31,5 +31,6 @@ module.exports = function(defaults) {
   // app.import(bootstrapPath + 'javascripts/bootstrap.js');
   app.import(`${bootstrapPath}javascripts/bootstrap/collapse.js`);
   app.import(`${bootstrapPath}javascripts/bootstrap/transition.js`);
+  app.import('node_modules/moment/moment.js');
   return app.toTree();
 };
